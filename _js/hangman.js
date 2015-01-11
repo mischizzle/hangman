@@ -1,3 +1,5 @@
+// case: need to remember past guesses; memoization??
+
 var hangman = {
 
   strikes: 0,
@@ -15,55 +17,55 @@ var hangman = {
 
   guess: function(letter) {
     var letterIndex;
-    this.logGuess();
 
-    if(this.checkGamePlay()) {
-
+    if(this.hasRemainingMoves()) {
       if(this.word.indexOf(letter) !== -1) {
         for (var i = 0; i < this.word.length; i++) {
-          letterIndex = this.word.indexOf(letter, i);
-
-          if(letterIndex !== -1) {
-            this.answerArr[letterIndex] = letter;
+          if(this.word.charAt(i) === letter) {
+            this.answerArr[i] = letter;
           }
         }
         this.checkWin();
 
       } else {
-        console.log("Hangman!");
         this.strikes++;
       }
+    } else {
+      this.setFinalOutcome("lost");
     }
+    this.logGuess(letter);
   },
 
   checkWin: function() {
     if(this.answerArr.join("") === this.word) {
-      console.log("You win!");
+      setFinalOutcome("won");
     }
   },
 
-  checkGamePlay: function() {
+  hasRemainingMoves: function() {
     if(this.strikes < this.maxStrikes) {
       return true;
     } else {
-      console.log("Game over :(");
+      return false;
     }
   },
 
-  logGuess: function() {
+  setFinalOutcome: function(outcome) {
+    var finsalOutcome;
+    if(outcome === "won") {
+      finsalOutcome = "You win!";
+    } else {
+      finsalOutcome = "You loose. Boo :(";
+    }
+
+    document.getElementById('result').innerHTML = finsalOutcome;
+  },
+
+  logGuess: function(letter) {
+    console.log("Guess letter:", letter);
     console.log("Strikes: ", this.strikes);
     console.log("Answer, so far: ", this.answerArr);
     console.log("");
   }
 }
 
-hangman.init("abracadabra");
-hangman.guess("a");
-hangman.guess("b");
-hangman.guess("A");
-hangman.guess("k");
-hangman.guess("d");
-hangman.guess("n");
-hangman.guess("m");
-hangman.guess("m");
-hangman.guess("m");

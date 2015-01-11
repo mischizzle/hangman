@@ -2,9 +2,25 @@
 <head>
   <title>Javascript Hangman</title>
 
+  <script type="text/javascript" src="_js/handler.js"></script>
   <script type="text/javascript" src="_js/hangman.js"></script>
 </head>
 <body>
+
+  <h1>Hangman</h1>
+
+  <script type="text/javascript">
+    hangman.init("abracadabra");
+  </script>
+
+  <h2 id="result"></h2>
+
+  <form>
+    <input type="text" id="hangman_input" onkeyup="hangmanHandler()" size="1" />
+  </form>
+
+  <h3>Guesses: <span id="guessesNum">0</span></h3>
+  <p id="guesses"></p>
 
 </body>
 </html>
