@@ -1,14 +1,12 @@
-var guessesNum = 0;
 
 function hangmanHandler() {
   var formInput = document.getElementById('hangman_input');
   var inputLetter = formInput.value;
 
-  addToGuesses(inputLetter);
-
   formInput.value = "";
 
   hangman.guess(inputLetter);
+  addToGuesses(inputLetter);
   displayAnswer();
   drawCanvas();
 }
@@ -18,10 +16,10 @@ function displayAnswer() {
 }
 
 function addToGuesses(char) {
-  guessesNum++;
-  document.getElementById('guessesNum').innerHTML = guessesNum;
-
+  document.getElementById('guessesNum').innerHTML = hangman.guesses;
+  document.getElementById('strikes').innerHTML = hangman.strikes;
   document.getElementById('guesses').innerHTML = document.getElementById('guesses').innerHTML + " " + char;
 }
 
 displayAnswer();
+drawCanvas();

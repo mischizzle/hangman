@@ -3,7 +3,8 @@
 var hangman = {
 
   strikes: 0,
-  maxStrikes: 8,
+  maxStrikes: 9,
+  guesses: 0,
   answerArr: [],
   word: "",
 
@@ -18,21 +19,22 @@ var hangman = {
   guess: function(letter) {
     var letterIndex;
 
-    if(this.hasRemainingMoves()) {
-      if(this.word.indexOf(letter) !== -1) {
-        for (var i = 0; i < this.word.length; i++) {
-          if(this.word.charAt(i) === letter) {
-            this.answerArr[i] = letter;
-          }
-        }
-        this.checkWin();
+    this.guesses++;
 
-      } else {
-        this.strikes++;
+    if(!this.checkLoss() && this.word.indexOf(letter) !== -1) {
+
+      for (var i = 0; i < this.word.length; i++) {
+        if(this.word.charAt(i) === letter) {
+          this.answerArr[i] = letter;
+        }
       }
+      this.checkWin();
+
     } else {
-      this.setFinalOutcome("lost");
+      this.strikes++;
+      this.checkLoss();
     }
+
     this.logGuess(letter);
   },
 
@@ -42,23 +44,22 @@ var hangman = {
     }
   },
 
-  hasRemainingMoves: function() {
-    if(this.strikes < this.maxStrikes) {
+  checkLoss: function() {
+    if(this.strikes === this.maxStrikes) {
+      this.setFinalOutcome("lost");
       return true;
-    } else {
-      return false;
     }
   },
 
   setFinalOutcome: function(outcome) {
-    var finsalOutcome;
+    var finalOutcome;
     if(outcome === "won") {
-      finsalOutcome = "You win!";
+      finalOutcome = "You win!";
     } else {
-      finsalOutcome = "You loose. Boo :(";
+      finalOutcome = "You loose. Boo :(";
     }
 
-    document.getElementById('result').innerHTML = finsalOutcome;
+    document.getElementById('result').innerHTML = finalOutcome;
   },
 
   logGuess: function(letter) {

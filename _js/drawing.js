@@ -73,5 +73,3 @@ function drawCanvas() {
       drawLine(c, [145,130], [160,170]);
     }
 }
-
-drawCanvas();
