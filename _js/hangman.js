@@ -3,7 +3,7 @@
 var hangman = {
 
   strikes: 0,
-  maxStrikes: 5,
+  maxStrikes: 8,
   answerArr: [],
   word: "",
 
@@ -11,7 +11,7 @@ var hangman = {
     this.word = word;
 
     for(var i = 0; i < this.word.length; i++) {
-      this.answerArr[i] = "";
+      this.answerArr[i] = "_";
     }
   },
 
@@ -38,7 +38,7 @@ var hangman = {
 
   checkWin: function() {
     if(this.answerArr.join("") === this.word) {
-      setFinalOutcome("won");
+      this.setFinalOutcome("won");
     }
   },
 
@@ -68,4 +68,6 @@ var hangman = {
     console.log("");
   }
 }
+
+hangman.init("abracadabra");
 

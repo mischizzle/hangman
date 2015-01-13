@@ -9,6 +9,12 @@ function hangmanHandler() {
   formInput.value = "";
 
   hangman.guess(inputLetter);
+  displayAnswer();
+  drawCanvas();
+}
+
+function displayAnswer() {
+  document.getElementById('answer').innerHTML = hangman.answerArr.join("");
 }
 
 function addToGuesses(char) {
@@ -17,3 +23,5 @@ function addToGuesses(char) {
 
   document.getElementById('guesses').innerHTML = document.getElementById('guesses').innerHTML + " " + char;
 }
+
+displayAnswer();

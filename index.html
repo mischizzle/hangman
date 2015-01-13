@@ -1,17 +1,13 @@
 <html>
 <head>
-  <title>Javascript Hangman</title>
 
-  <script type="text/javascript" src="_js/handler.js"></script>
-  <script type="text/javascript" src="_js/hangman.js"></script>
+  <title>Javascript Hangman</title>
+  <link rel="stylesheet" type="text/css" href="_styles/hangman.css">
+
 </head>
 <body>
 
-  <h1>Hangman</h1>
-
-  <script type="text/javascript">
-    hangman.init("abracadabra");
-  </script>
+<!--   <h1>Hangman</h1> -->
 
   <h2 id="result"></h2>
 
@@ -19,8 +15,16 @@
     <input type="text" id="hangman_input" onkeyup="hangmanHandler()" size="1" />
   </form>
 
+  <canvas id="stage">sdf</canvas>
+  <h3>Answer: <span id="answer"></span></h3>
+
   <h3>Guesses: <span id="guessesNum">0</span></h3>
   <p id="guesses"></p>
+
+  <script type="text/javascript" src="_js/hangman.js"></script>
+  <script type="text/javascript" src="_js/handler.js"></script>
+  <script type="text/javascript" src="_js/drawing.js"></script>
+
 
 </body>
 </html>
