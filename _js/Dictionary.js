@@ -1,18 +1,8 @@
 var dictionary = function dictionary() {
   function getRandomWord() {
 
-    var xhr = new XMLHttpRequest();
-    // console.log(xhr);
-
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-            console.log(xhr.responseText);
-        }
-    }
-    xhr.open('GET', '_data/14-letter-words.txt', true);
-    xhr.send(null);
-
-    return "abracadabra";
+    var randomIndex = Math.floor( Math.random() * dictionary_14_letters.length );
+    return dictionary_14_letters[randomIndex].toLowerCase();
   }
 
   return {
