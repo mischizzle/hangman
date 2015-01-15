@@ -22,6 +22,8 @@ var Hangman = function hangman() {
   function guess(letter) {
     var i;
 
+    guesses++;
+
     if(!checkLoss() && word.isLetterInWord(letter)) {
       // word.findAllOccurencesInWord(letter);
       for (i = 0; i < word.getValue().length; i++) {
