@@ -1,6 +1,5 @@
 // case: need to remember past guesses; memoization??
 
-
 var dictionary = function dictionary() {
   function getRandomWord() {
     return "abracadabra";
@@ -10,6 +9,7 @@ var dictionary = function dictionary() {
     getRandomWord: getRandomWord
   };
 };
+
 
 var Word = function word() {
   var value = "";
@@ -30,11 +30,6 @@ var Word = function word() {
         result.push(i);
       }
     }
-    // for (var i = 0; i < this.word.getValue().length; i++) {
-    //     if(this.word.getValue().charAt(i) === letter) {
-    //       this.answerArr[i] = letter;
-    //     }
-    //   }
     return result;
   }
 
@@ -68,29 +63,26 @@ var hangman = {
     var i;
     this.word.init();
 
-   // this seems like view layer, not domain
     for(i = 0; i < this.word.getValue().length; i++) {
-      this.answerArr[i] = "_";
+      this.answerArr[i] = '';
     }
-    console.log(this.answerArr);
   },
 
   guess: function(letter) {
     // this.guess
     if(!this.checkLoss() && this.word.isLetterInWord(letter)) {
-      this.word.findAllOccurencesInWord(letter);
+      // this.word.findAllOccurencesInWord(letter);
+      for (var i = 0; i < this.word.getValue().length; i++) {
+        if(this.word.getValue().charAt(i) === letter) {
+          this.answerArr[i] = letter;
+        }
+      }
     } else {
       this.strikes++;
     }
     this.checkGameCompletion()
     this.logGuess(letter);
   },
-
-  // checkWin: function() {
-  //   if(this.answerArr.join("") === this.word) {
-  //     this.setFinalOutcome("won");
-  //   }
-  // },
 
   checkLoss: function() {
     return this.strikes === this.maxStrikes;

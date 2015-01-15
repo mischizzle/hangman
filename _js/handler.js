@@ -12,7 +12,17 @@ function hangmanHandler() {
 }
 
 function displayAnswer() {
-  document.getElementById('answer').innerHTML = hangman.answerArr.join("");
+  var formattedAnswerArr = [];
+  hangman.answerArr.map(function(letter) {
+    console.log(letter);
+    if(letter === "") {
+      formattedAnswerArr.push('_');
+    } else {
+      formattedAnswerArr.push(letter);
+    }
+    formattedAnswerArr.push(' ');
+  });
+  document.getElementById('answer').innerHTML = formattedAnswerArr.join("");
 }
 
 function addToGuesses(char) {
