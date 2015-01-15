@@ -7,9 +7,9 @@
 </head>
 <body>
 
-<!--   <h1>Hangman</h1> -->
+  <h1>Hangman</h1>
 
-  <h2 id="result"></h2>
+  <p id="result"></p>
 
   <form>
     <input type="text" id="hangman_input" onkeyup="hangmanHandler()" size="1" />
@@ -21,13 +21,13 @@
   <h3>Guesses: <span id="guessesNum">0</span></h3>
   <p id="guesses"></p>
 
-  <h3>Strikes: <span id="strikes"></span></h3>
+  <h3>Strikes: <span id="strikes">0</span></h3>
 
-  <script type="text/javascript" src="_js/hangman.js"></script>
+  <script type="text/javascript" src="_js/dictionary.js"></script>
+  <script type="text/javascript" src="_js/Word.js"></script>
+  <script type="text/javascript" src="_js/Hangman.js"></script>
   <script type="text/javascript" src="_js/drawing.js"></script>
   <script type="text/javascript" src="_js/handler.js"></script>
-
-
 
 </body>
 </html>

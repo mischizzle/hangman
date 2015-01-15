@@ -1,119 +1,75 @@
 // case: need to remember past guesses; memoization??
 
-var dictionary = function dictionary() {
-  function getRandomWord() {
-    return "abracadabra";
-  }
+var Hangman = function hangman() {
 
-  return {
-    getRandomWord: getRandomWord
-  };
-};
-
-
-var Word = function word() {
-  var value = "";
+  var strikes = 0,
+      maxStrikes = 9,
+      guesses = 0,
+      answerArr = [],
+      gameStatus = '',
+      word = new Word();
 
   function init() {
-    value = dictionary().getRandomWord();
-  }
-
-  function isLetterInWord(letter) {
-    return value.indexOf(letter) !== -1;
-  }
-
-  function findAllOccurencesInWord(letter) {
-    var result = [];
     var i;
-    for (i = 0; i < value.length; i++) {
-      if (value.charAt(i) === letter) {
-        result.push(i);
-      }
+
+    word.init();
+
+    for(i = 0; i < word.getValue().length; i++) {
+      answerArr[i] = '';
     }
-    return result;
   }
 
-  function getValue() {
-    return value;
+  function guess(letter) {
+    var i;
+
+    if(!checkLoss() && word.isLetterInWord(letter)) {
+      // word.findAllOccurencesInWord(letter);
+      for (i = 0; i < word.getValue().length; i++) {
+        if(word.getValue().charAt(i) === letter) {
+          answerArr[i] = letter;
+        }
+      }
+    } else {
+      strikes++;
+    }
+    checkGameCompletion()
+  }
+
+  function checkLoss() {
+    return strikes === maxStrikes;
+  }
+
+  function checkGameCompletion() {
+    if( word.getValue() === answerArr.join('')){
+      // finalOutcome = 'You win! :)';
+      gameStatus = 'win';
+    } else if( strikes === maxStrikes ) {
+      // finalOutcome = 'You loose :(';
+      gameStatus = 'lost';
+    } else {
+      // finalOutcome = 'Game still in progress...';
+      gameStatus = 'play';
+    }
+  }
+
+  function getStrikes() {
+    return strikes;
+  }
+
+  function getGuesses() {
+    return guesses;
+  }
+
+  function getGameStatus() {
+    return gameStatus;
   }
 
   return {
     init: init,
-    isLetterInWord: isLetterInWord,
-    findAllOccurencesInWord: findAllOccurencesInWord,
-    getValue: getValue
+    guess: guess,
+    getGuesses: getGuesses,
+    getStrikes: getStrikes,
+    getGameStatus: getGameStatus,
+    answerArr: answerArr
   };
 };
-
-// var word1 = new Word();
-// // var word2 = new word();
-// word1.init();
-// console.log(word1);
-// console.log(word1.getValue());
-
-var hangman = {
-
-  strikes: 0,
-  maxStrikes: 9,
-  guesses: 0,
-  answerArr: [],
-  word: new Word(),
-
-  init: function init() {
-    var i;
-    this.word.init();
-
-    for(i = 0; i < this.word.getValue().length; i++) {
-      this.answerArr[i] = '';
-    }
-  },
-
-  guess: function(letter) {
-    // this.guess
-    if(!this.checkLoss() && this.word.isLetterInWord(letter)) {
-      // this.word.findAllOccurencesInWord(letter);
-      for (var i = 0; i < this.word.getValue().length; i++) {
-        if(this.word.getValue().charAt(i) === letter) {
-          this.answerArr[i] = letter;
-        }
-      }
-    } else {
-      this.strikes++;
-    }
-    this.checkGameCompletion()
-    this.logGuess(letter);
-  },
-
-  checkLoss: function() {
-    return this.strikes === this.maxStrikes;
-  },
-
-  checkGameCompletion: function() {
-    if(this.strikes === this.maxStrikes) {
-      console.log("lost");
-    } else {
-      console.log("won");
-    }
-  },
-
-  setFinalOutcome: function(outcome) {
-    var finalOutcome;
-    if(outcome === "won") {
-      finalOutcome = "You win!";
-    } else {
-      finalOutcome = "You loose. Boo :(";
-    }
-
-    document.getElementById('result').innerHTML = finalOutcome;
-  },
-
-  logGuess: function(letter) {
-    console.log("Guess letter:", letter);
-    console.log("Strikes: ", this.strikes);
-    console.log("Answer, so far: ", this.answerArr);
-    console.log("");
-  }
-}
-
-hangman.init();
-

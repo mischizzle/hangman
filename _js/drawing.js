@@ -23,12 +23,12 @@ function drawCanvas() {
     c.strokeStyle = 'black';
 
     // draw gallow 1
-    if(hangman.strikes > 0) {
+    if(hangman.getStrikes() > 0) {
       drawLine(c, [30,140], [30,10]);
     }
 
     // draw gallow 2
-    if(hangman.strikes > 1) {
+    if(hangman.getStrikes() > 1) {
       c.lineTo(150,10);
       c.stroke();
     }
@@ -36,12 +36,12 @@ function drawCanvas() {
     c.lineWidth = 5;
 
     // draw the rope
-    if(hangman.strikes > 2) {
+    if(hangman.getStrikes() > 2) {
       drawLine(c, [145,15], [145,30]);
     }
 
     // draw the head
-    if(hangman.strikes > 3) {
+    if(hangman.getStrikes() > 3) {
       c.beginPath();
       c.moveTo(160, 45);
       c.arc(145, 45, 15, 0, (Math.PI/180)*360);
@@ -49,27 +49,27 @@ function drawCanvas() {
     }
 
     // draw body
-    if (hangman.strikes > 4) {
+    if (hangman.getStrikes() > 4) {
       drawLine(c, [145,60], [145,130]);
     }
 
     // draw left arm
-    if (hangman.strikes > 5) {
+    if (hangman.getStrikes() > 5) {
       drawLine(c, [145,80], [110,90]);
     }
 
     // draw right arm
-    if (hangman.strikes > 6) {
+    if (hangman.getStrikes() > 6) {
       drawLine(c, [145,80], [180,90]);
     }
 
     // draw left leg
-    if (hangman.strikes > 7) {
+    if (hangman.getStrikes() > 7) {
       drawLine(c, [145,130], [130,170]);
     }
 
     // draw right leg .. and game over!
-    if (hangman.strikes > 8) {
+    if (hangman.getStrikes() > 8) {
       drawLine(c, [145,130], [160,170]);
     }
 }
