@@ -4,74 +4,105 @@ var Hangman = function hangman() {
 
   var strikes = 0,
       maxStrikes = 9,
-      guesses = 0,
-      answerArr = [],
+      guessesArr = [],
+      correctGuessesArr = [],
       gameStatus = '',
+      messages = '',
       word = new Word();
 
-  function init() {
+  initGuessArr();
+
+  function initGuessArr() {
     var i;
-
-    word.init();
-
     for(i = 0; i < word.getValue().length; i++) {
-      answerArr[i] = '';
+      correctGuessesArr[i] = '';
     }
   }
 
   function guess(letter) {
     var i;
 
-    guesses++;
+    clearMessages();
 
-    if(!checkLoss() && word.isLetterInWord(letter)) {
-      // word.findAllOccurencesInWord(letter);
-      for (i = 0; i < word.getValue().length; i++) {
-        if(word.getValue().charAt(i) === letter) {
-          answerArr[i] = letter;
+    if(passSanityCheck(letter)) {
+      if(word.isLetterInWord(letter, word.getValue())) {
+        for (i = 0; i < word.getValue().length; i++) {
+          if(word.getValue().charAt(i) === letter) {
+            correctGuessesArr[i] = letter;
+          }
         }
+      } else {
+        strikes++;
       }
-    } else {
-      strikes++;
+      guessesArr.push(letter);
+      checkGameCompletion();
     }
-    checkGameCompletion()
   }
 
-  function checkLoss() {
+  function passSanityCheck(letter) {
+    var result = false;
+
+    if( duplicateGuess(letter)) {
+      messages = 'You have already tried that letter';
+    } else if ( !isLetter(letter) ) {
+      messages = 'Please input a letter from A-Z';
+    } else {
+      return true;
+    }
+  }
+
+  function isLetter(letter) {
+    return !letter.match( /[^A-Za-z]/ );
+  }
+
+  function duplicateGuess(letter) {
+    return word.isLetterInWord(letter, guessesArr);
+  }
+
+  function gameOver() {
     return strikes === maxStrikes;
   }
 
   function checkGameCompletion() {
-    if( word.getValue() === answerArr.join('')){
-      // finalOutcome = 'You win! :)';
+    if( word.getValue() === correctGuessesArr.join('')){
       gameStatus = 'win';
-    } else if( strikes === maxStrikes ) {
-      // finalOutcome = 'You loose :(';
+    } else if( gameOver() ) {
+      console.log(word.getValue().split(''));
+      correctGuessesArr = word.getValue().split('');
+      console.log(correctGuessesArr);
       gameStatus = 'lost';
+
     } else {
-      // finalOutcome = 'Game still in progress...';
       gameStatus = 'play';
     }
+  }
+
+  function getCorrectGuessesArr() {
+    return correctGuessesArr;
   }
 
   function getStrikes() {
     return strikes;
   }
 
-  function getGuesses() {
-    return guesses;
-  }
-
   function getGameStatus() {
     return gameStatus;
   }
 
+  function clearMessages() {
+    messages = '';
+  }
+
+  function getMessages() {
+    return messages;
+  }
+
   return {
-    init: init,
     guess: guess,
-    getGuesses: getGuesses,
     getStrikes: getStrikes,
     getGameStatus: getGameStatus,
-    answerArr: answerArr
+    getMessages: getMessages,
+    guessesArr: guessesArr,
+    correctGuessesArr: correctGuessesArr
   };
 };

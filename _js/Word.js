@@ -1,12 +1,9 @@
 var Word = function word() {
-  var value = "";
 
-  function init() {
-    value = dictionary().getRandomWord();
-  }
+  var value = dictionary().getRandomWord();
 
-  function isLetterInWord(letter) {
-    return value.indexOf(letter) !== -1;
+  function isLetterInWord(letter, strinOrArray) {
+    return strinOrArray.indexOf(letter) !== -1;
   }
 
   function findAllOccurencesInWord(letter) {
@@ -26,7 +23,6 @@ var Word = function word() {
   }
 
   return {
-    init: init,
     isLetterInWord: isLetterInWord,
     findAllOccurencesInWord: findAllOccurencesInWord,
     getValue: getValue

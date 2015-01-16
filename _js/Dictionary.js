@@ -4,7 +4,7 @@ var dictionary = function dictionary() {
     var randomIndex = Math.floor( Math.random() * dictionary_14_letters.length );
     var randomWord = dictionary_14_letters[randomIndex].toLowerCase();
 
-    console.log(randomWord);
+    // console.log(randomWord);
     return randomWord;
   }
 

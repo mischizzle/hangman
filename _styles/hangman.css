@@ -3,3 +3,9 @@ canvas {
   height: 200px;*/
   border: 1px solid black;
 }
+
+#messages {
+  border: 2px solid gray;
+  padding: 2px;
+  background-color: #cdcdcd;
+}

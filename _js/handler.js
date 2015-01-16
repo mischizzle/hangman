@@ -1,7 +1,7 @@
 var hangman = new Hangman();
-hangman.init();
+
 drawCanvas();
-displayAnswer();
+formatAnswer();
 
 function hangmanHandler() {
   var userInputEl = document.getElementById('hangman_input');
@@ -9,17 +9,20 @@ function hangmanHandler() {
 
   hangman.guess(userInput);
 
-  addToGuesses(userInput);
-  displayAnswer();
+  extras();
+  formatAnswer();
   outputGameStatus();
   drawCanvas();
 
   userInputEl.value = '';
 }
 
-function displayAnswer() {
+function formatAnswer() {
   var formattedAnswerArr = [];
-  hangman.answerArr.map(function(letter) {
+
+  console.log("Formatting answer", hangman.correctGuessesArr);
+  console.log(hangman);
+  hangman.correctGuessesArr.map(function(letter) {
     if(letter === "") {
       formattedAnswerArr.push('_');
     } else {
@@ -39,6 +42,7 @@ function outputGameStatus() {
       break;
     case 'lost':
       formattedStatus = "You loose :(";
+      formatAnswer();
       break;
     default:
       formattedStatus = "Still playing...";
@@ -47,8 +51,8 @@ function outputGameStatus() {
   document.getElementById('result').innerHTML = formattedStatus;
 }
 
-function addToGuesses(char) {
-  document.getElementById('guessesNum').innerHTML = hangman.getGuesses();
+function extras() {
   document.getElementById('strikes').innerHTML = hangman.getStrikes();
-  document.getElementById('guesses').innerHTML = document.getElementById('guesses').innerHTML + " " + char;
+  document.getElementById('guesses').innerHTML = hangman.guessesArr.join(" ");
+  document.getElementById('messages').innerHTML = hangman.getMessages();
 }
