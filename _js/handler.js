@@ -21,7 +21,6 @@ function formatAnswer() {
   var formattedAnswerArr = [];
 
   console.log("Formatting answer", hangman.correctGuessesArr);
-  console.log(hangman);
   hangman.correctGuessesArr.map(function(letter) {
     if(letter === "") {
       formattedAnswerArr.push('_');

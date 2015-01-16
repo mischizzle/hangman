@@ -64,14 +64,15 @@ var Hangman = function hangman() {
   }
 
   function checkGameCompletion() {
+    var newArr = word.getValue().split('');
+
     if( word.getValue() === correctGuessesArr.join('')){
       gameStatus = 'win';
     } else if( gameOver() ) {
-      console.log(word.getValue().split(''));
-      correctGuessesArr = word.getValue().split('');
-      console.log(correctGuessesArr);
       gameStatus = 'lost';
-
+      // note: array assignment is asynchronous.. so have to push answer.
+      correctGuessesArr.length = 0;
+      correctGuessesArr.push.apply(correctGuessesArr, newArr);
     } else {
       gameStatus = 'play';
     }
