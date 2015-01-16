@@ -8,29 +8,26 @@ var Hangman = function hangman() {
       correctGuessesArr = [],
       gameStatus = '',
       messages = '',
+      letter = '',
       word = new Word();
 
-  initGuessArr();
+  init();
 
-  function initGuessArr() {
+  function init() {
     var i;
     for(i = 0; i < word.getValue().length; i++) {
       correctGuessesArr[i] = '';
     }
   }
 
-  function guess(letter) {
+  function guess(userInputLetter) {
     var i;
-
+    letter = userInputLetter;
     clearMessages();
 
     if(passSanityCheck(letter)) {
       if(word.isLetterInWord(letter, word.getValue())) {
-        for (i = 0; i < word.getValue().length; i++) {
-          if(word.getValue().charAt(i) === letter) {
-            correctGuessesArr[i] = letter;
-          }
-        }
+        addLetterToGuessesArr(letter);
       } else {
         strikes++;
       }
@@ -39,23 +36,33 @@ var Hangman = function hangman() {
     }
   }
 
-  function passSanityCheck(letter) {
+  function addLetterToGuessesArr() {
+    for (i = 0; i < word.getValue().length; i++) {
+      if(word.getValue().charAt(i) === letter) {
+        correctGuessesArr[i] = letter;
+      }
+    }
+  }
+
+  function passSanityCheck() {
     var result = false;
 
     if( duplicateGuess(letter)) {
       messages = 'You have already tried that letter';
     } else if ( !isLetter(letter) ) {
       messages = 'Please input a letter from A-Z';
+    } else if ( gameOver() ) {
+      messages = 'Game over.';
     } else {
       return true;
     }
   }
 
-  function isLetter(letter) {
+  function isLetter() {
     return !letter.match( /[^A-Za-z]/ );
   }
 
-  function duplicateGuess(letter) {
+  function duplicateGuess() {
     return word.isLetterInWord(letter, guessesArr);
   }
 

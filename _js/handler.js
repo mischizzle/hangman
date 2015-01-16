@@ -20,7 +20,7 @@ function hangmanHandler() {
 function formatAnswer() {
   var formattedAnswerArr = [];
 
-  console.log("Formatting answer", hangman.correctGuessesArr);
+  // console.log("Formatting answer", hangman.correctGuessesArr);
   hangman.correctGuessesArr.map(function(letter) {
     if(letter === "") {
       formattedAnswerArr.push('_');
