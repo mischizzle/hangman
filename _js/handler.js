@@ -20,15 +20,15 @@ function hangmanHandler() {
 function formatAnswer() {
   var formattedAnswerArr = [];
 
-  // console.log("Formatting answer", hangman.correctGuessesArr);
   hangman.correctGuessesArr.map(function(letter) {
-    if(letter === "") {
+    if (letter === "") {
       formattedAnswerArr.push('_');
     } else {
       formattedAnswerArr.push(letter);
     }
     formattedAnswerArr.push(' ');
   });
+
   document.getElementById('answer').innerHTML = formattedAnswerArr.join("");
 }
 

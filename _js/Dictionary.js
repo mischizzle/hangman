@@ -1,4 +1,4 @@
-var dictionary = function dictionary() {
+var Dictionary = function dictionary() {
   function getRandomWord() {
 
     var randomIndex = Math.floor( Math.random() * dictionary_14_letters.length );

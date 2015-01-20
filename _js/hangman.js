@@ -11,22 +11,17 @@ var Hangman = function hangman() {
       letter = '',
       word = new Word();
 
-  init();
-
-  function init() {
-    var i;
-    for(i = 0; i < word.getValue().length; i++) {
-      correctGuessesArr[i] = '';
-    }
-  }
+  word.getValue().split('').map(function(item, i) {
+    correctGuessesArr[i] = '';
+  });
 
   function guess(userInputLetter) {
-    var i;
+
     letter = userInputLetter;
     clearMessages();
 
-    if(passSanityCheck(letter)) {
-      if(word.isLetterInWord(letter, word.getValue())) {
+    if (passSanityCheck(letter)) {
+      if (word.isLetterInWord(letter, word.getValue())) {
         addLetterToGuessesArr(letter);
       } else {
         strikes++;
@@ -37,8 +32,9 @@ var Hangman = function hangman() {
   }
 
   function addLetterToGuessesArr() {
+    var i;
     for (i = 0; i < word.getValue().length; i++) {
-      if(word.getValue().charAt(i) === letter) {
+      if (word.getValue().charAt(i) === letter) {
         correctGuessesArr[i] = letter;
       }
     }
@@ -47,11 +43,11 @@ var Hangman = function hangman() {
   function passSanityCheck() {
     var result = false;
 
-    if( duplicateGuess(letter)) {
+    if (duplicateGuess(letter)) {
       messages = 'You have already tried that letter';
-    } else if ( !isLetter(letter) ) {
+    } else if (!isLetter(letter)) {
       messages = 'Please input a letter from A-Z';
-    } else if ( gameOver() ) {
+    } else if (gameOver() ) {
       messages = 'Game over.';
     } else {
       return true;
@@ -73,9 +69,9 @@ var Hangman = function hangman() {
   function checkGameCompletion() {
     var newArr = word.getValue().split('');
 
-    if( word.getValue() === correctGuessesArr.join('')){
+    if (word.getValue() === correctGuessesArr.join('')) {
       gameStatus = 'win';
-    } else if( gameOver() ) {
+    } else if (gameOver()) {
       gameStatus = 'lost';
       // note: array assignment is asynchronous.. so have to push answer.
       correctGuessesArr.length = 0;
